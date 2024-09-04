@@ -1,0 +1,19 @@
+doctype html
+html 
+    head 
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body    
+        h1 Custom Object Table
+        a(href="/update_cobj") Add/Update this table 
+        table
+            tr.header
+                th Name 
+                th Consoles 
+                th Release Year
+            each videogame in data
+                tr
+                    td #{videogame.properties.name}  
+                    td #{videogame.properties.consoles}
+                    td #{videogame.properties.release_year}

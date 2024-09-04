@@ -25,8 +25,8 @@ app.get("/", async (req, res) => {
   try {
     const response = await axios.get(videogames, { headers });
     const data = response.data.results;
-    res.render("videogames", {
-      title: "Videogames for the Practicum",
+    res.render("homepage", {
+      title: "Custom Object Table",
       data,
     });
   } catch (error) {
@@ -56,7 +56,29 @@ app.get("/update_cobj", async (req, res) => {
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
-// * Code for Route 3 goes here
+app.post("/update", async (req, res) => {
+  const update = {
+    properties: {
+      name: req.body.newVal,
+      consoles: req.body.newVal,
+      release_year: req.body.newVal,
+    },
+  };
+
+  const name = req.query.name;
+  const updateGame = `https://api.hubapi.com/crm/v3/objects/2-133064973/${name}?idProperty=name`;
+  const headers = {
+    Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+    "Content-Type": "application/json",
+  };
+
+  try {
+    await axios.patch(updateGame, update, { headers });
+    res.redirect("back");
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
