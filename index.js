@@ -36,7 +36,7 @@ app.get("/", async (req, res) => {
 
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
-app.get("/updates", async (req, res) => {
+app.get("/update_cobj", async (req, res) => {
   const videogames = `https://api.hubapi.com/crm/v3/objects/2-133064973/?properties=${params}`;
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
@@ -45,8 +45,8 @@ app.get("/updates", async (req, res) => {
   try {
     const response = await axios.get(videogames, { headers });
     const data = response.data.results;
-    res.render("videogames", {
-      title: "Videogames for the Practicum",
+    res.render("updates", {
+      title: "Update Custom Object Form | Integrating With HubSpot I Practicum",
       data,
     });
   } catch (error) {
