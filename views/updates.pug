@@ -6,3 +6,16 @@ html
         link(rel="stylesheet", href="/css/style.css")
     body    
         a(href="/") Return to the homepage
+
+        form(method="POST")
+            div
+                label(for="name") Videogame Name:
+                input(type="text" name="name" required)
+            div
+                label(for="consoles") Consoles:
+                input(type="text" name="consoles" required)
+            div
+                label(for="release_year") Release Year:
+                input(type="number" name="release_year" required)
+            div
+                button(type="submit") Create Videogame

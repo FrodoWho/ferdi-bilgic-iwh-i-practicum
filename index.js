@@ -56,27 +56,29 @@ app.get("/update_cobj", async (req, res) => {
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
-app.post("/update", async (req, res) => {
+app.post("/update_cobj", async (req, res) => {
   const update = {
     properties: {
-      name: req.body.newVal,
-      consoles: req.body.newVal,
-      release_year: req.body.newVal,
+      name: req.body.name,
+      consoles: req.body.consoles,
+      release_year: req.body.release_year,
     },
   };
 
-  const name = req.query.name;
-  const updateGame = `https://api.hubapi.com/crm/v3/objects/2-133064973/${name}?idProperty=name`;
+  //   const name = req.query.name;
+  const updateGame = `https://api.hubapi.com/crm/v3/objects/2-133064973`;
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
     "Content-Type": "application/json",
   };
 
   try {
-    await axios.patch(updateGame, update, { headers });
-    res.redirect("back");
+    await axios.post(updateGame, update, { headers });
+    res.redirect("/");
   } catch (err) {
     console.error(err);
+
+    res.status(500).send("An error occurred while updating the CRM object.");
   }
 });
 
