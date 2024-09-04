@@ -12,17 +12,23 @@ app.use(express.json());
 // eslint-disable-next-line no-undef
 const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
+const params = `name,consoles,release_year`;
+
 // TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
 
 app.get("/", async (req, res) => {
-  const videogames = "https://api.hubapi.com/crm/v3/objects/2-133064973";
+  const videogames = `https://api.hubapi.com/crm/v3/objects/2-133064973/?properties=${params}`;
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
     "Content-Type": "application/json",
   };
   try {
     const response = await axios.get(videogames, { headers });
-    res.json(response.data.results);
+    const data = response.data.results;
+    res.render("videogames", {
+      title: "Videogames for the Practicum",
+      data,
+    });
   } catch (error) {
     console.error(error);
   }
@@ -30,7 +36,23 @@ app.get("/", async (req, res) => {
 
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
-// * Code for Route 2 goes here
+app.get("/updates", async (req, res) => {
+  const videogames = `https://api.hubapi.com/crm/v3/objects/2-133064973/?properties=${params}`;
+  const headers = {
+    Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+    "Content-Type": "application/json",
+  };
+  try {
+    const response = await axios.get(videogames, { headers });
+    const data = response.data.results;
+    res.render("videogames", {
+      title: "Videogames for the Practicum",
+      data,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
